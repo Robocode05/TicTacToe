@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>   
 #include <unistd.h> //Per sleep()
 
@@ -30,6 +31,17 @@ int game_over(char *m){
     if (*(m + 2) == *(m + 4) && *(m + 2) == *(m + 6) && *(m + 2) != ' ') 
         return 1;
     return 0;  // Nessuna vittoria
+}
+
+void print_matrix(char m[][3]){
+	int i,j;
+	for(i=0;i<3;i++){
+		for(j=0;j<3;j++){
+			printf(" %c ", *(m[i]+j));
+			if(j!=2) printf(" | ");
+		}
+		if(i!=2) printf("\n----+-----+----\n");
+	}
 }
 
  int main(){
@@ -69,7 +81,7 @@ printf("INSERISCI 0 PER GIOCARE COL BOT, 1 PER GIOCARE IN DUE\n");
 switch (mod){
 case 0:
  while(game_over((char *)matrix)==0) {
- 	printf("Utente X fai la tua giocata, inserendo le coordinate della casella\n");
+ 	printf("Fai la tua giocata, inserendo le coordinate della casella\n");
  	scanf("%d,%d", &riga, &colonna);
  	
  	
@@ -83,20 +95,15 @@ case 0:
 	printf("\n");
 	
  	//stampa aggiornata della matrice 
- 	for(i=0;i<3;i++){
- 	for(j=0;j<3;j++){
- 		printf(" %c ", *(matrix[i]+j));
- 		if(j!=2) printf(" | ");
-	 }
-	 if(i!=2) printf("\n----+-----+----\n");
- }
+ 	print_matrix(matrix);
+
      printf("\n\n\n");
      play++;
      if(play==9) break;
 
      //controllo che il gioco non sia finito, se si hanno vinto le X
  	if(game_over((char *)matrix)==1){
- 		printf("\n\t\t\t\tTRIS!!! Vincitore: X");
+ 		printf("\n\t\t\t\tTRIS!!! HAI VINTO :)");
  		return 0;
 	 } 
  	
@@ -115,33 +122,37 @@ case 0:
  	colonna=numero_casuale;
 	 }
 	 
-     sleep(1);
+     sleep(2);
      
 	matrix[riga][colonna]='O';
  	printf("\n");
  	
  	//stampa aggiornata della matrice
- 	for(i=0;i<3;i++){
- 	for(j=0;j<3;j++){
- 		printf(" %c ", *(matrix[i]+j));
- 		if(j!=2) printf(" | ");
-	 }
-	 if(i!=2) printf("\n----+-----+----\n");  
-}
+ 	print_matrix(matrix); 
+
      printf("\n\n");
      play++;
      //controllo che il gioco non sia finito, se si hanno vinto i O
      if(game_over((char *)matrix)==1){
- 		printf("\n\t\t\t\tTRIS!!! Vincitore: O");
+ 		printf("\n\t\t\t\tTRIS!!! HAI PERSO :(");
  		return 0;
 	 } 
      printf("\n");
      
  }
  break;
-case 1:
+case 1: 
+//nomi giocatori
+char player1[30];
+char player2[30];
+printf("Inserisci il nome del primo giocatore (X)\n");
+scanf("%29s", player1);
+printf("Inserisci il nome del primo giocatore (O)\n");
+scanf("%29s", player2);
+
+
  while(game_over((char *)matrix)==0) {
- 	printf("Utente X fai la tua giocata, inserendo le coordinate della casella\n");
+ 	printf("%s fai la tua giocata, inserendo le coordinate della casella\n", player1);
  	scanf("%d,%d", &riga, &colonna);
  	
  	
@@ -155,24 +166,19 @@ case 1:
 	printf("\n");
 	
  	//stampa aggiornata della matrice 
- 	for(i=0;i<3;i++){
- 	for(j=0;j<3;j++){
- 		printf(" %c ", *(matrix[i]+j));
- 		if(j!=2) printf(" | ");
-	 }
-	 if(i!=2) printf("\n----+-----+----\n");
- }
+ 	print_matrix(matrix);
+
      printf("\n\n\n");
      play++;
      if(play==9) break;
 
      //controllo che il gioco non sia finito, se si hanno vinto le X
  	if(game_over((char *)matrix)==1){
- 		printf("\n\t\t\t\tTRIS!!! Vincitore: X");
+ 		printf("\n\t\t\t\tTRIS!!! Vincitore: %s", player1);
  		return 0;
 	 } 
  	
- 	printf("Utente O fai la tua giocata, inserendo le coordinate della casella\n");
+ 	printf("%s fai la tua giocata, inserendo le coordinate della casella\n", player2);
  	scanf("%d,%d", &riga, &colonna);
  	
      //controllo che la casella sia vuota e che siano inseriti numeri da 0 a 2
@@ -185,18 +191,13 @@ case 1:
  	printf("\n");
  	
  	//stampa aggiornata della matrice
- 	for(i=0;i<3;i++){
- 	for(j=0;j<3;j++){
- 		printf(" %c ", *(matrix[i]+j));
- 		if(j!=2) printf(" | ");
-	 }
-	 if(i!=2) printf("\n----+-----+----\n");  
-}
+ 	print_matrix(matrix);
+
      printf("\n\n");
      play++;
      //controllo che il gioco non sia finito, se si hanno vinto i O
      if(game_over((char *)matrix)==1){
- 		printf("\n\t\t\t\tTRIS!!! Vincitore: O");
+ 		printf("\n\t\t\t\tTRIS!!! Vincitore: %s", player2);
  		return 0;
 	 } 
      printf("\n");
