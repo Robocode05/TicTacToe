@@ -8,4 +8,4 @@ Draw detection: The game also checks for a draw when the board is full without a
 
 How to Play
 Two Players: Players take turns to place their marks (X or O) on the grid. The first player to align three marks in a row, column, or diagonal wins.
-Player vs Bot: The player plays against a bot. The bot will make its move automatically (random).
+Player vs Bot: The player plays against a bot. The bot will make its move automatically, the user can choose between medium and hard difficulty.
